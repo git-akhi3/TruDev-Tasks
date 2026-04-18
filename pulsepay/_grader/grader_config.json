@@ -1,0 +1,126 @@
+{
+  "version": "1.0",
+  "tasks": {
+    "bug_001": {
+      "branch": "task/bug-001-idempotency-duplicate-charge/easy",
+      "title": "Idempotency Duplicate Charge",
+      "type": "bug",
+      "difficulty": "easy",
+      "test_module": "_grader/bug_001_idempotency/test_grader.py",
+      "tests": {
+        "test_concurrent_same_key_creates_one_payment": 50,
+        "test_idempotency_record_written": 20,
+        "test_second_request_returns_original_response": 30
+      }
+    },
+    "bug_002": {
+      "branch": "task/bug-002-refund-state-bypass/easy",
+      "title": "Refund State Bypass",
+      "type": "bug",
+      "difficulty": "easy",
+      "test_module": "_grader/bug_002_refund_state/test_grader.py",
+      "tests": {
+        "test_refund_on_processing_payment_returns_409": 40,
+        "test_refund_on_failed_payment_returns_409": 35,
+        "test_refund_on_success_payment_proceeds": 25
+      }
+    },
+    "bug_003": {
+      "branch": "task/bug-003-webhook-signature-mismatch/easy",
+      "title": "Webhook Signature Mismatch",
+      "type": "bug",
+      "difficulty": "easy",
+      "test_module": "_grader/bug_003_webhook_signature/test_grader.py",
+      "tests": {
+        "test_signature_matches_hmac_of_json_body": 60,
+        "test_signature_does_not_match_str_repr": 40
+      }
+    },
+    "bug_004": {
+      "branch": "task/bug-004-retry-count-not-persisted/medium",
+      "title": "Retry Count Not Persisted",
+      "type": "bug",
+      "difficulty": "medium",
+      "test_module": "_grader/bug_004_retry_count/test_grader.py",
+      "tests": {
+        "test_retry_count_persists_after_each_attempt": 50,
+        "test_payment_transitions_to_failed_after_max_retries": 30,
+        "test_retry_count_in_db_matches_attempt_log": 20
+      }
+    },
+    "bug_005": {
+      "branch": "task/bug-005-ledger-missing-on-failure/medium",
+      "title": "Ledger Missing On Failure",
+      "type": "bug",
+      "difficulty": "medium",
+      "test_module": "_grader/bug_005_ledger_missing/test_grader.py",
+      "tests": {
+        "test_failed_payment_has_ledger_entry": 50,
+        "test_soft_failure_path_writes_ledger_entry": 30,
+        "test_success_path_ledger_unaffected": 20
+      }
+    },
+    "bug_006": {
+      "branch": "task/bug-006-race-condition-double-refund/hard",
+      "title": "Race Condition Double Refund",
+      "type": "bug",
+      "difficulty": "hard",
+      "test_module": "_grader/bug_006_double_refund/test_grader.py",
+      "tests": {
+        "test_concurrent_partial_refunds_never_exceed_original": 60,
+        "test_second_concurrent_refund_returns_conflict": 40
+      }
+    },
+    "feature_001": {
+      "branch": "task/feature-001-payment-expiry/easy",
+      "title": "Payment Expiry",
+      "type": "feature",
+      "difficulty": "easy",
+      "test_module": "_grader/feature_001_payment_expiry/test_grader.py",
+      "tests": {
+        "test_expires_at_set_on_payment_creation": 20,
+        "test_expired_pending_payment_transitions_to_failed": 35,
+        "test_failure_reason_is_expired": 20,
+        "test_payment_expired_webhook_emitted": 25
+      }
+    },
+    "feature_002": {
+      "branch": "task/feature-002-idempotency-ttl-config/easy",
+      "title": "Idempotency TTL Config",
+      "type": "feature",
+      "difficulty": "easy",
+      "test_module": "_grader/feature_002_idempotency_ttl/test_grader.py",
+      "tests": {
+        "test_client_ttl_respected_in_idempotency_check": 40,
+        "test_key_expired_under_short_ttl_is_rejected": 35,
+        "test_patch_endpoint_updates_client_ttl": 25
+      }
+    },
+    "feature_003": {
+      "branch": "task/feature-003-webhook-replay/medium",
+      "title": "Webhook Replay",
+      "type": "feature",
+      "difficulty": "medium",
+      "test_module": "_grader/feature_003_webhook_replay/test_grader.py",
+      "tests": {
+        "test_replay_resets_attempt_count": 25,
+        "test_replay_increments_replay_count": 25,
+        "test_cannot_replay_running_event": 25,
+        "test_cannot_replay_twice_within_60_seconds": 25
+      }
+    },
+    "feature_004": {
+      "branch": "task/feature-004-circuit-breaker/hard",
+      "title": "Circuit Breaker",
+      "type": "feature",
+      "difficulty": "hard",
+      "test_module": "_grader/feature_004_circuit_breaker/test_grader.py",
+      "tests": {
+        "test_circuit_opens_after_threshold_failures": 35,
+        "test_open_circuit_fails_fast_without_calling_processor": 30,
+        "test_half_open_transitions_to_closed_on_success": 20,
+        "test_circuit_state_in_metrics_endpoint": 15
+      }
+    }
+  }
+}
